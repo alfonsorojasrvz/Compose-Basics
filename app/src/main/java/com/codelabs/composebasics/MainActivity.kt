@@ -30,23 +30,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+@Composable
+fun MyApp(){
+    ComposeBasicsTheme {
+        Surface(color = Color.Yellow){
+            Greeting("Android")
+        }
+
+    }
+}
 
 @Composable
 fun Greeting(name: String) {
-    Surface(color = Color.Yellow){
         Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
-    }
-
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    ComposeBasicsTheme {
-
-         Greeting("Android")
-
-
-    }
+    MyApp()
 }
