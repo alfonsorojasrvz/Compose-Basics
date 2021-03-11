@@ -51,22 +51,27 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
+    val counterState = remember { mutableStateOf(0) }
+
     Column {
         for (name in names) {
             Greeting(name = name)
             Divider(color = Color.Black)
         }
         Divider(color = Color.Transparent, thickness = 32.dp)
-        Counter()
+        Counter(
+            count = counterState.value,
+            updateCount = {newCount ->
+                counterState.value = newCount
+            }
+        )
     }
 }
 @Composable
-fun Counter() {
+fun Counter(count: Int, updateCount: (Int)-> Unit) {
 
-    val count = remember { mutableStateOf(0) }
-
-    Button(onClick = { count.value++ }) {
-        Text("I've been clicked ${count.value} times")
+    Button(onClick = { updateCount(count+1) }) {
+        Text("I've been clicked $count times")
     }
 }
 
