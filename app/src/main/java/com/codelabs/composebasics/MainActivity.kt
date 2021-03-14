@@ -2,17 +2,17 @@ package com.codelabs.composebasics
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Surface
 import androidx.compose.material.TabRowDefaults.Divider
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -54,6 +54,7 @@ fun Greeting(name: String) {
 fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
     val counterState = remember { mutableStateOf(0) }
 
+
     Column(modifier = Modifier.fillMaxHeight()) {
         Column(modifier = Modifier.weight(1f)) {
             for (name in names) {
@@ -63,6 +64,7 @@ fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
 
         }
         Counter(
+
             count = counterState.value,
             updateCount = { newCount ->
                 counterState.value = newCount
@@ -74,7 +76,11 @@ fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
 @Composable
 fun Counter(count: Int, updateCount: (Int) -> Unit) {
 
-    Button(onClick = { updateCount(count + 1) }) {
+    Button(onClick = { updateCount(count + 1) },
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = if ( count > 5) Color.Green else Color.White
+        )
+    ) {
         Text("I've been clicked $count times")
     }
 }
