@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
@@ -51,18 +53,12 @@ fun Greeting(name: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
+fun MyScreenContent(names: List<String> = List(1000){"Hello Android #$it"}) {
     val counterState = remember { mutableStateOf(0) }
 
 
     Column(modifier = Modifier.fillMaxHeight()) {
-        Column(modifier = Modifier.weight(1f)) {
-            for (name in names) {
-                Greeting(name = name)
-                Divider(color = Color.Black)
-            }
-
-        }
+        NameList(names,Modifier.weight(1f))
         Counter(
 
             count = counterState.value,
@@ -72,7 +68,16 @@ fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
         )
     }
 }
+@Composable
+fun NameList(names: List<String>, modifier: Modifier = Modifier){
+    LazyColumn(modifier = modifier) {
+        items(items = names) { name ->
+            Greeting( name = name)
+            Divider(color = Color.Black)
 
+        }
+    }
+}
 @Composable
 fun Counter(count: Int, updateCount: (Int) -> Unit) {
 
